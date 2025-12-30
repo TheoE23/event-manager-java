@@ -22,13 +22,23 @@ public class Event {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Event() {}
 
-    public Event(String title, String description, LocalDateTime eventDate, User user) {
+    public Event(String title, String description, LocalDateTime eventDate, User user, Location location, Category category) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
         this.user = user;
+        this.location = location;
+        this.category = category;
     }
 
     // getters and setters
@@ -71,5 +81,21 @@ public class Event {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
