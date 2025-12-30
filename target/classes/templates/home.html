@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Event Manager</title>
-</head>
-<body>
-    <h1>Hello world!</h1>
-    <p>Your first page works!</p>
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/layout :: layout(~{::section})">
+
+    <section>
+        <h1>Welcome to Event Manager</h1>
+        <p>Your first page works!</p>
+    </section>
+
+</div>
+
 </html>
