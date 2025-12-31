@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/layout :: layout(~{::section})">
+
+    <section>
+        <h2>Events</h2>
+
+        <table border="1" width="100%">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Created By</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+
+            <tr th:each="event : ${events.content}">
+                <td th:text="${event.title}"></td>
+                <td th:text="${event.description}"></td>
+                <td th:text="${event.category != null ? event.category.name : 'N/A'}"></td>
+                <td th:text="${event.location != null ? event.location.name : 'N/A'}"></td>
+                <td th:text="${event.user.username}"></td>
+
+                <td>
+                    <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+                </td>
+
+                <td>
+                    <form th:action="@{/events/delete/{id}(id=${event.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 20px;">
+            <a th:if="${events.hasPrevious()}"
+               th:href="@{/events(page=${events.number - 1})}">
+                Previous
+            </a>
+
+            <span> Page [[${events.number + 1}]] </span>
+
+            <a th:if="${events.hasNext()}"
+               th:href="@{/events(page=${events.number + 1})}">
+                Next
+            </a>
+        </div>
+    </section>
+
+</div>
+</html>

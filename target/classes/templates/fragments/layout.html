@@ -30,13 +30,22 @@
         color: white;
     ">
         <a href="/" style="color:white; font-weight:bold;">Home</a>
+        <a href="/events">Events</a>
 
-        <!-- Center: Admin indicator -->
-        <div>
-        <span sec:authorize="hasRole('ADMIN')" style="font-weight:bold;">
-            ADMIN
+        <span sec:authorize="isAuthenticated()">
+            <a href="/events/new">Create Event</a>
         </span>
+
+
+        <div>
+            <span sec:authorize="hasRole('ADMIN')" style="font-weight:bold;">
+            ADMIN
+            </span>
         </div>
+
+        <span sec:authorize="hasRole('ADMIN')">
+            <a href="/admin">Admin Panel</a>
+        </span>
 
         <div>
             <span sec:authorize="!isAuthenticated()">

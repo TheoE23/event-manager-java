@@ -43,7 +43,7 @@ import java.util.List;
             return events;
         }
 
-        public void setEvents(List<Event> eventList) {
+        public void setEvents(List<Event> events) {
             this.events = events;
         }
     }

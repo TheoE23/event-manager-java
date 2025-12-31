@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/layout :: layout(~{::section})">
+
+    <section style="display: flex; gap: 50px;">
+
+        <div>
+            <h2>Add Location</h2>
+
+            <form th:action="@{/admin/location}" method="post">
+                <input type="text" name="name" placeholder="Location name" required>
+                <br><br>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Add Category</h2>
+
+            <form th:action="@{/admin/category}" method="post">
+                <input type="text" name="name" placeholder="Category name" required>
+                <br><br>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+    </section>
+
+</div>
+
+</html>
