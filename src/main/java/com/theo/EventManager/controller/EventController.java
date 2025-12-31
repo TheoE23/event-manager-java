@@ -1,6 +1,7 @@
 package com.theo.EventManager.controller;
 
 import com.theo.EventManager.model.Event;
+import com.theo.EventManager.model.Role;
 import com.theo.EventManager.model.User;
 import com.theo.EventManager.repository.CategoryRepository;
 import com.theo.EventManager.repository.EventRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EventController {
@@ -57,15 +59,48 @@ public class EventController {
     }
 
     @PostMapping("/events/delete/{id}")
-    public String deleteEvent(@PathVariable Long id) {
-        eventRepository.deleteById(id);
+    public String deleteEvent(@PathVariable Long id,
+                              @AuthenticationPrincipal User currentUser,
+                              RedirectAttributes redirectAttributes) {
+
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid event"));
+
+        boolean isOwner = event.getUser().getId().equals(currentUser.getId());
+        boolean isAdmin = currentUser.getRole() == Role.ADMIN;
+
+        if (!isOwner && !isAdmin) {
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "You are not allowed to delete this event."
+            );
+            return "redirect:/events";
+        }
+
+        eventRepository.delete(event);
+        redirectAttributes.addFlashAttribute("success", "Event deleted.");
         return "redirect:/events";
     }
 
     @GetMapping("/events/edit/{id}")
-    public String editEventForm(@PathVariable Long id, Model model) {
+    public String editEventForm(@PathVariable Long id,
+                                @AuthenticationPrincipal User user,
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid event id"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid event"));
+
+        boolean isOwner = event.getUser().getId().equals(user.getId());
+        boolean isAdmin = user.getRole() == Role.ADMIN;
+
+        if (!isOwner && !isAdmin) {
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "You are not allowed to edit this event."
+            );
+            return "redirect:/events";
+        }
 
         model.addAttribute("event", event);
         model.addAttribute("categories", categoryRepository.findAll());

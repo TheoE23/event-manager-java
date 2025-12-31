@@ -5,10 +5,19 @@
     <section>
         <h2>Events</h2>
 
+        <div th:if="${error}" style="color: red; font-weight: bold;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <div th:if="${success}" style="color: green; font-weight: bold;">
+            <p th:text="${success}"></p>
+        </div>
+
         <table border="1" width="100%">
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Date</th>
                 <th>Category</th>
                 <th>Location</th>
                 <th>Created By</th>
@@ -19,6 +28,7 @@
             <tr th:each="event : ${events.content}">
                 <td th:text="${event.title}"></td>
                 <td th:text="${event.description}"></td>
+                <td th:text="${event.eventDate}"></td>
                 <td th:text="${event.category != null ? event.category.name : 'N/A'}"></td>
                 <td th:text="${event.location != null ? event.location.name : 'N/A'}"></td>
                 <td th:text="${event.user.username}"></td>
