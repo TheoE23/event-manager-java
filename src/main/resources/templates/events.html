@@ -13,6 +13,29 @@
             <p th:text="${success}"></p>
         </div>
 
+        <form method="get" th:action="@{/events}">
+            <label>Category:</label>
+            <select name="category">
+                <option value="">All</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.id}"
+                        th:text="${cat.name}">
+                </option>
+            </select>
+
+            <label>Location:</label>
+            <select name="location">
+                <option value="">All</option>
+                <option th:each="loc : ${locations}"
+                        th:value="${loc.id}"
+                        th:text="${loc.name}">
+                </option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+
+
         <table border="1" width="100%">
             <tr>
                 <th>Title</th>

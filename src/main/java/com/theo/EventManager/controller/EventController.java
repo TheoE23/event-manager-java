@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.List;
 
 @Controller
 public class EventController {
@@ -51,10 +52,32 @@ public class EventController {
     @GetMapping("/events")
     public String listEvents(
             @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) Long category,
+            @RequestParam(required = false) Long location,
             Model model
     ) {
-        Page<Event> events = eventRepository.findAll(PageRequest.of(page, 5));
+        Page<Event> events;
+
+        if (category != null && location != null) {
+            events = eventRepository.findByCategoryIdAndLocationId(
+                    category, location, PageRequest.of(page, 5)
+            );
+        } else if (category != null) {
+            events = eventRepository.findByCategoryId(
+                    category, PageRequest.of(page, 5)
+            );
+        } else if (location != null) {
+            events = eventRepository.findByLocationId(
+                    location, PageRequest.of(page, 5)
+            );
+        } else {
+            events = eventRepository.findAll(PageRequest.of(page, 5));
+        }
+
         model.addAttribute("events", events);
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("locations", locationRepository.findAll());
+
         return "events";
     }
 
