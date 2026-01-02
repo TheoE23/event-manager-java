@@ -3,16 +3,49 @@
 
 <div th:replace="fragments/layout :: layout(~{::section})">
 
-    <section>
-        <h2>Login</h2>
+    <section style="max-width: 400px; margin: 60px auto;">
 
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="Username" required />
-            <br><br>
-            <input type="password" name="password" placeholder="Password" required />
-            <br><br>
-            <button type="submit">Login</button>
-        </form>
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        ">
+
+            <h2 style="text-align: center; margin-bottom: 25px;">Login</h2>
+
+            <form th:action="@{/login}" method="post">
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Username</label>
+                    <input type="text" name="username" required
+                           style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 5px;">Password</label>
+                    <input type="password" name="password" required
+                           style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
+
+                <div style="text-align: center;">
+                    <button type="submit"
+                            style="
+                                background-color: #3498db;
+                                color: white;
+                                border: none;
+                                padding: 12px 25px;
+                                border-radius: 6px;
+                                font-size: 16px;
+                                cursor: pointer;
+                            ">
+                        Login
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
 
     </section>
 

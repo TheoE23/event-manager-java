@@ -3,9 +3,66 @@
 
 <div th:replace="fragments/layout :: layout(~{::section})">
 
-    <section>
-        <h1>Welcome to Event Manager</h1>
-        <p>Your first page works!</p>
+    <section style="
+        min-height: 75vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px;
+    ">
+
+        <h1 style="
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        ">
+            Welcome to Event Manager
+        </h1>
+
+        <p style="
+            max-width: 650px;
+            font-size: 1.2rem;
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        ">
+            Discover, create, and manage events with ease.
+            Whether you're hosting or attending, everything you need
+            is in one place.
+        </p>
+
+        <div style="display: flex; gap: 20px;">
+
+            <a href="/events"
+               style="
+                   background-color: #3498db;
+                   color: white;
+                   padding: 14px 32px;
+                   border-radius: 6px;
+                   text-decoration: none;
+                   font-size: 1rem;
+                   font-weight: 500;
+               ">
+                Browse Events
+            </a>
+
+            <a href="/register"
+               style="
+                   border: 2px solid #3498db;
+                   color: #3498db;
+                   padding: 14px 32px;
+                   border-radius: 6px;
+                   text-decoration: none;
+                   font-size: 1rem;
+                   font-weight: 500;
+               ">
+                Get Started
+            </a>
+
+        </div>
+
     </section>
 
 </div>

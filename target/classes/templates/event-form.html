@@ -1,45 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <div th:replace="fragments/layout :: layout(~{::section})">
 
-    <section>
-        <h2>Create Event</h2>
+    <section style="max-width: 600px; margin: 50px auto;">
 
-        <form th:action="@{/events}" method="post">
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        ">
 
-            <label>Title</label><br>
-            <input type="text" name="title" required><br><br>
+            <h2 style="margin-bottom: 25px; text-align: center;">Create Event</h2>
 
-            <label>Description</label><br>
-            <textarea name="description"></textarea><br><br>
+            <form th:action="@{/events}" method="post">
 
-            <label>Date</label><br>
-            <input type="datetime-local" name="eventDate"><br><br>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Title</label>
+                    <input type="text" name="title" required
+                           style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
 
-            <label>Category</label><br>
-            <select name="category.id" required>
-                <option value="">Select category</option>
-                <option th:each="cat : ${categories}"
-                        th:value="${cat.id}"
-                        th:text="${cat.name}">
-                </option>
-            </select>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Description</label>
+                    <textarea name="description" rows="4"
+                              style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+                </div>
 
-            <br><br>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Date</label>
+                    <input type="datetime-local" name="eventDate"
+                           style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
 
-            <label>Location</label><br>
-            <select name="location.id" required>
-                <option value="">Select location</option>
-                <option th:each="loc : ${locations}"
-                        th:value="${loc.id}"
-                        th:text="${loc.name}">
-                </option>
-            </select>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Category</label>
+                    <select name="category.id" required
+                            style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="">Select category</option>
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat.id}"
+                                th:text="${cat.name}">
+                        </option>
+                    </select>
+                </div>
 
-            <br><br>
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 5px;">Location</label>
+                    <select name="location.id" required
+                            style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="">Select location</option>
+                        <option th:each="loc : ${locations}"
+                                th:value="${loc.id}"
+                                th:text="${loc.name}">
+                        </option>
+                    </select>
+                </div>
 
-            <button type="submit">Create Event</button>
-        </form>
+                <div style="text-align: center;">
+                    <button type="submit"
+                            style="
+                                background-color: #3498db;
+                                color: white;
+                                border: none;
+                                padding: 12px 25px;
+                                border-radius: 6px;
+                                font-size: 16px;
+                                cursor: pointer;
+                            ">
+                        Create Event
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
     </section>
 
 </div>

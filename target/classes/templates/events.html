@@ -1,85 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <div th:replace="fragments/layout :: layout(~{::section})">
 
-    <section>
-        <h2>Events</h2>
+    <section style="max-width: 1100px; margin: 40px auto;">
 
-        <div th:if="${error}" style="color: red; font-weight: bold;">
-            <p th:text="${error}"></p>
-        </div>
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        ">
 
-        <div th:if="${success}" style="color: green; font-weight: bold;">
-            <p th:text="${success}"></p>
-        </div>
+            <h2 style="margin-bottom: 25px;">Events</h2>
 
-        <form method="get" th:action="@{/events}">
-            <label>Category:</label>
-            <select name="category">
-                <option value="">All</option>
-                <option th:each="cat : ${categories}"
-                        th:value="${cat.id}"
-                        th:text="${cat.name}">
-                </option>
-            </select>
+            <div th:if="${error}" style="color: #e74c3c; font-weight: bold; margin-bottom: 15px;">
+                <p th:text="${error}"></p>
+            </div>
 
-            <label>Location:</label>
-            <select name="location">
-                <option value="">All</option>
-                <option th:each="loc : ${locations}"
-                        th:value="${loc.id}"
-                        th:text="${loc.name}">
-                </option>
-            </select>
+            <div th:if="${success}" style="color: #2ecc71; font-weight: bold; margin-bottom: 15px;">
+                <p th:text="${success}"></p>
+            </div>
 
-            <button type="submit">Filter</button>
-        </form>
+            <form method="get" th:action="@{/events}"
+                  style="display: flex; gap: 20px; align-items: center; margin-bottom: 25px;">
 
+                <label>
+                    Category:
+                    <select name="category" style="margin-left: 5px;">
+                        <option value="">All</option>
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat.id}"
+                                th:text="${cat.name}">
+                        </option>
+                    </select>
+                </label>
 
-        <table border="1" width="100%">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Location</th>
-                <th>Created By</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
+                <label>
+                    Location:
+                    <select name="location" style="margin-left: 5px;">
+                        <option value="">All</option>
+                        <option th:each="loc : ${locations}"
+                                th:value="${loc.id}"
+                                th:text="${loc.name}">
+                        </option>
+                    </select>
+                </label>
 
-            <tr th:each="event : ${events.content}">
-                <td th:text="${event.title}"></td>
-                <td th:text="${event.description}"></td>
-                <td th:text="${event.eventDate}"></td>
-                <td th:text="${event.category != null ? event.category.name : 'N/A'}"></td>
-                <td th:text="${event.location != null ? event.location.name : 'N/A'}"></td>
-                <td th:text="${event.user.username}"></td>
+                <button type="submit"
+                        style="padding: 6px 14px; background-color: #3498db;
+                               color: white; border: none; border-radius: 4px;
+                               cursor: pointer;">
+                    Filter
+                </button>
+            </form>
 
-                <td>
-                    <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
-                </td>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                <tr style="background-color: #f2f2f2;">
+                    <th style="padding: 12px;">Title</th>
+                    <th style="padding: 12px;">Description</th>
+                    <th style="padding: 12px;">Date</th>
+                    <th style="padding: 12px;">Category</th>
+                    <th style="padding: 12px;">Location</th>
+                    <th style="padding: 12px;">Created By</th>
+                    <th style="padding: 12px;">Edit</th>
+                    <th style="padding: 12px;">Delete</th>
+                </tr>
+                </thead>
 
-                <td>
-                    <form th:action="@{/events/delete/{id}(id=${event.id})}" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
+                <tbody>
+                <tr th:each="event : ${events.content}" style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;" th:text="${event.title}"></td>
+                    <td style="padding: 10px;" th:text="${event.description}"></td>
+                    <td style="padding: 10px;" th:text="${event.eventDate}"></td>
+                    <td style="padding: 10px;" th:text="${event.category != null ? event.category.name : 'N/A'}"></td>
+                    <td style="padding: 10px;" th:text="${event.location != null ? event.location.name : 'N/A'}"></td>
+                    <td style="padding: 10px;" th:text="${event.user.username}"></td>
 
-        <div style="margin-top: 20px;">
-            <a th:if="${events.hasPrevious()}"
-               th:href="@{/events(page=${events.number - 1})}">
-                Previous
-            </a>
+                    <td style="padding: 10px;">
+                        <a th:href="@{/events/edit/{id}(id=${event.id})}"
+                           style="color: #2980b9; text-decoration: none;">
+                            Edit
+                        </a>
+                    </td>
 
-            <span> Page [[${events.number + 1}]] </span>
+                    <td style="padding: 10px;">
+                        <form th:action="@{/events/delete/{id}(id=${event.id})}" method="post">
+                            <button type="submit"
+                                    style="background-color: #e74c3c;
+                                               border: none;
+                                               color: white;
+                                               padding: 6px 10px;
+                                               border-radius: 4px;
+                                               cursor: pointer;">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-            <a th:if="${events.hasNext()}"
-               th:href="@{/events(page=${events.number + 1})}">
-                Next
-            </a>
+            <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px;">
+                <a th:if="${events.hasPrevious()}"
+                   th:href="@{/events(page=${events.number - 1})}">
+                    ← Previous
+                </a>
+
+                <span>Page [[${events.number + 1}]]</span>
+
+                <a th:if="${events.hasNext()}"
+                   th:href="@{/events(page=${events.number + 1})}">
+                    Next →
+                </a>
+            </div>
+
         </div>
     </section>
 

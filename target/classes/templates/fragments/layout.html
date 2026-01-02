@@ -5,9 +5,8 @@
 <body>
 
 <div th:fragment="layout(content)"
-     style="min-height: 100vh; display: flex; flex-direction: column; font-family: Arial, sans-serif;">
+     style="min-height: 100vh; display: flex; flex-direction: column; font-family: Arial, sans-serif; background-color: #f5f6fa;">
 
-    <!-- GLOBAL RESET -->
     <style>
         * {
             margin: 0;
@@ -19,61 +18,86 @@
             width: 100%;
             height: 100%;
         }
+         a:hover, button:hover {
+        opacity: 0.8;
+    }
     </style>
 
     <header style="
-        background-color: #c0392b;
-        padding: 1.5%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: white;
+    background-color: #1f1f23;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     ">
-        <a href="/" style="color:white; font-weight:bold;">Home</a>
-        <a href="/events">Events</a>
 
-        <span sec:authorize="isAuthenticated()">
-            <a href="/events/new">Create Event</a>
-        </span>
+        <div style="display: flex; gap: 20px; align-items: center;">
 
+            <a href="/" style="color:white; text-decoration:none; font-weight:600;">
+                Home
+            </a>
 
-        <div>
-            <span sec:authorize="hasRole('ADMIN')" style="font-weight:bold;">
-            ADMIN
-            </span>
-        </div>
-
-        <span sec:authorize="hasRole('ADMIN')">
-            <a href="/admin">Admin Panel</a>
-        </span>
-
-        <div>
-            <span sec:authorize="!isAuthenticated()">
-                <a href="/login" style="color:white; margin-right:10px;">Login</a>
-                <a href="/register" style="color:white;">Register</a>
-            </span>
+            <a href="/events" style="color:white; text-decoration:none;">
+                Events
+            </a>
 
             <span sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" style="background:none; border:none; color:white; cursor:pointer;">
-                        Logout
-                    </button>
-                </form>
-            </span>
+            <a href="/events/new" style="color:white; text-decoration:none;">
+                Create Event
+            </a>
+        </span>
+
+            <span sec:authorize="hasRole('ADMIN')">
+            <a href="/admin" style="color:white; text-decoration:none;">
+                Admin Panel
+            </a>
+        </span>
         </div>
+
+        <div style="display: flex; gap: 15px; align-items: center;">
+
+        <span sec:authorize="!isAuthenticated()">
+            <a href="/login" style="color:white; text-decoration:none;">
+                Login
+            </a>
+            <a href="/register" style="color:white; text-decoration:none;">
+                Register
+            </a>
+        </span>
+
+            <span sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" style="margin:0;">
+                <button type="submit"
+                        style="
+                            background: none;
+                            border: none;
+                            color: white;
+                            cursor: pointer;
+                            font-size: 1em;
+                        ">
+                    Logout
+                </button>
+            </form>
+        </span>
+
+        </div>
+
     </header>
 
-    <main style="flex: 1; padding: 3%;">
+    <main style="flex: 1; padding: 3%; background-color: #4c4f52">
         <div th:replace="${content}"></div>
     </main>
 
     <footer style="
-        background-color: #c0392b;
+        background-color: #1f1f23;
         color: white;
         text-align: center;
         padding: 1.5%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     ">
-        Event Manager © 2025
+        Event Manager
     </footer>
 
 </div>

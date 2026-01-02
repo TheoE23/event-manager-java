@@ -3,26 +3,87 @@
 
 <div th:replace="fragments/layout :: layout(~{::section})">
 
-    <section style="display: flex; gap: 50px;">
+    <section style="max-width: 900px; margin: 50px auto;">
 
-        <div>
-            <h2>Add Location</h2>
+        <div style="
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        ">
 
-            <form th:action="@{/admin/location}" method="post">
-                <input type="text" name="name" placeholder="Location name" required>
-                <br><br>
-                <button type="submit">Add</button>
-            </form>
-        </div>
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+                width: 350px;
+            ">
 
-        <div>
-            <h2>Add Category</h2>
+                <h2 style="margin-bottom: 20px; text-align: center;">Add Location</h2>
 
-            <form th:action="@{/admin/category}" method="post">
-                <input type="text" name="name" placeholder="Category name" required>
-                <br><br>
-                <button type="submit">Add</button>
-            </form>
+                <form th:action="@{/admin/location}" method="post">
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; margin-bottom: 5px;">Location Name</label>
+                        <input type="text" name="name" required
+                               style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="submit"
+                                style="
+                                    background-color: #3498db;
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 24px;
+                                    border-radius: 6px;
+                                    font-size: 15px;
+                                    cursor: pointer;
+                                ">
+                            Add Location
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+                width: 350px;
+            ">
+
+                <h2 style="margin-bottom: 20px; text-align: center;">Add Category</h2>
+
+                <form th:action="@{/admin/category}" method="post">
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; margin-bottom: 5px;">Category Name</label>
+                        <input type="text" name="name" required
+                               style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="submit"
+                                style="
+                                    background-color: #3498db;
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 24px;
+                                    border-radius: 6px;
+                                    font-size: 15px;
+                                    cursor: pointer;
+                                ">
+                            Add Category
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
         </div>
 
     </section>
